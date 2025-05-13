@@ -1,3 +1,4 @@
+// @ts-ignore
 import NotificationForm from "../components/NotificationForm";
 
 export default function Notificacoes() {

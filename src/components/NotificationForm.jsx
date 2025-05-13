@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
 
 export default function NotificationForm() {
-  const token = "ExponentPushToken[90E2JvKBnP42mo5yhPWyLw]";
+  const token = "ExponentPushToken[RZAwvgAuBIF0VdSp67hkA2]";
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [data, setData] = useState("");
   const [historico, setHistorico] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/send-notification", {
+      const res = await fetch("http://192.168.15.44:3000/send-notification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to: token, title, body, agendamento: data }),
+        body: JSON.stringify({ to: token, title, body }),
       });
-      const dataRes = await res.json();
+      const data = await res.json();
       alert("Notificação enviada com sucesso!");
       setTitle("");
       setBody("");
-      setData("");
       fetchHistorico(); // Atualiza histórico após envio
     } catch (err) {
       console.error("Erro:", err);
@@ -29,7 +27,7 @@ export default function NotificationForm() {
 
   const fetchHistorico = async () => {
     try {
-      const res = await fetch("http://localhost:3000/historico");
+      const res = await fetch("http://192.168.15.44:3000/historico");
       const data = await res.json();
       setHistorico(data); // ✅ Agora respeita a ordenação feita no backend
     } catch (err) {
@@ -59,13 +57,6 @@ export default function NotificationForm() {
           className="w-full p-2 border rounded h-28 resize-none"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          required
-        />
-        <input
-          type="datetime-local"
-          className="w-full p-2 border rounded"
-          value={data}s
-          onChange={(e) => setData(e.target.value)}
           required
         />
         <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 w-full">

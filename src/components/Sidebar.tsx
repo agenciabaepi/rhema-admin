@@ -6,7 +6,7 @@ export default function Sidebar() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navItem = (to, label) => (
+  const navItem = (to: string, label: string) => (
     <Link
       to={to}
       onClick={() => setMenuOpen(false)} // fecha menu ao navegar
@@ -39,8 +39,6 @@ export default function Sidebar() {
         <h2 className="text-2xl font-bold mb-6">Painel Rhema</h2>
         <nav className="space-y-2">
           {navItem("/", "Notificações")}
-          {navItem("/devocionais", "Devocionais")}
-          {navItem("/configuracoes", "Configurações")}
         </nav>
       </div>
                 {/* Overlay escuro para fechar o menu mobile */}
