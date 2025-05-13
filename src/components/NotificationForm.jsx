@@ -29,7 +29,9 @@ export default function NotificationForm() {
     try {
       const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
       const data = await res.json();
-      if (Array.isArray(data)) {
+      if (data && Array.isArray(data.notificacoes)) {
+        setHistorico(data.notificacoes);
+      } else if (Array.isArray(data)) {
         setHistorico(data);
       } else {
         console.warn("Resposta inesperada:", data);
