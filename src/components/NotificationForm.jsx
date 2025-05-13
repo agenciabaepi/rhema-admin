@@ -9,7 +9,7 @@ export default function NotificationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("fetch('https://rhema-backend-production.up.railway.app/send-notification', ...)", {
+      const res = await fetch("https://rhema-backend-production.up.railway.app/send-notification", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ to: token, title, body }),
@@ -27,7 +27,7 @@ export default function NotificationForm() {
 
   const fetchHistorico = async () => {
     try {
-      const res = await fetch("http://192.168.15.44:3000/historico");
+      const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
       const data = await res.json();
       setHistorico(data); // ✅ Agora respeita a ordenação feita no backend
     } catch (err) {
