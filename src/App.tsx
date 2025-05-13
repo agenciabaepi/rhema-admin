@@ -1,20 +1,23 @@
-import { buttonVariants } from "@/components/ui/button";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Notificacoes from "./pages/Notificacoes";
+import Devocionais from "./pages/Devocionais";
+import Configuracoes from "./pages/Configuracoes";
 
 function App() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen space-y-20">
-      <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-        Vite, React, Shadcn-ui minimal starter
-      </h1>
-      <a
-        href="https://github.com/moinulmoin/vite-react-tailwind-starter"
-        target="_blank"
-        rel="noreferrer"
-        className={buttonVariants()}
-      >
-        ⭐️ on GitHub
-      </a>
-    </main>
+    <Router>
+      <div className="flex">
+        <Sidebar />
+        <div className="flex-1 p-6">
+          <Routes>
+            <Route path="/" element={<Notificacoes />} />
+            <Route path="/devocionais" element={<Devocionais />} />
+            <Route path="/configuracoes" element={<Configuracoes />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
