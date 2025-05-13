@@ -28,17 +28,23 @@ export default function NotificationForm() {
   const fetchHistorico = async () => {
     try {
       const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
+      if (!res.ok) {
+        console.error("Erro na resposta do servidor:", res.status);
+        setHistorico([]);
+        return;
+      }
       const data = await res.json();
-      if (data && Array.isArray(data.notificacoes)) {
-        setHistorico(data.notificacoes);
-      } else if (Array.isArray(data)) {
+      if (Array.isArray(data)) {
         setHistorico(data);
+      } else if (data && Array.isArray(data.notificacoes)) {
+        setHistorico(data.notificacoes);
       } else {
-        console.warn("Resposta inesperada:", data);
+        console.warn("Formato de resposta inesperado:", data);
         setHistorico([]);
       }
     } catch (err) {
       console.error("Erro ao buscar histórico:", err);
+      setHistorico([]);
     }
   };
 
