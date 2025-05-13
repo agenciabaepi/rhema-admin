@@ -9,7 +9,7 @@ export default function NotificationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://192.168.15.44:3000/send-notification", {
+      const res = await fetch("fetch('https://rhema-backend-production.up.railway.app/send-notification', ...)", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ to: token, title, body }),
