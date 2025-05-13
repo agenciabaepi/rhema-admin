@@ -30,11 +30,13 @@ export default function NotificationForm() {
       const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
       if (!res.ok) {
         console.error("Erro na resposta do servidor:", res.status);
+        console.log("URL:", res.url);
         setHistorico([]);
         return;
       }
       try {
         const data = await res.json();
+        console.log("Dados recebidos:", data);
         if (Array.isArray(data)) {
           setHistorico(data);
         } else if (data && Array.isArray(data.notificacoes)) {
