@@ -29,7 +29,12 @@ export default function NotificationForm() {
     try {
       const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
       const data = await res.json();
-      setHistorico(data); // ✅ Agora respeita a ordenação feita no backend
+      if (Array.isArray(data)) {
+        setHistorico(data);
+      } else {
+        console.warn("Resposta inesperada:", data);
+        setHistorico([]);
+      }
     } catch (err) {
       console.error("Erro ao buscar histórico:", err);
     }
