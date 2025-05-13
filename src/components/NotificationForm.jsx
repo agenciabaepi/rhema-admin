@@ -33,13 +33,19 @@ export default function NotificationForm() {
         setHistorico([]);
         return;
       }
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setHistorico(data);
-      } else if (data && Array.isArray(data.notificacoes)) {
-        setHistorico(data.notificacoes);
-      } else {
-        console.warn("Formato de resposta inesperado:", data);
+      try {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setHistorico(data);
+        } else if (data && Array.isArray(data.notificacoes)) {
+          setHistorico(data.notificacoes);
+        } else {
+          console.warn("Formato de resposta inesperado:", data);
+          setHistorico([]);
+        }
+      } catch (jsonError) {
+        const errorText = await res.text();
+        console.error("Erro ao fazer parse da resposta:", errorText);
         setHistorico([]);
       }
     } catch (err) {
