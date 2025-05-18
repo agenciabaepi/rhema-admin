@@ -15,6 +15,12 @@ export default function NotificationForm() {
         body: JSON.stringify({ to: token, title, body }),
       });
       const data = await res.json();
+      // Após envio, registra a notificação no banco de dados
+      await fetch("https://rhema-backend-production.up.railway.app/registrar-notificacao", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, body, data: new Date().toISOString() }),
+      });
       alert("Notificação enviada com sucesso!");
       setTitle("");
       setBody("");
@@ -29,7 +35,9 @@ export default function NotificationForm() {
     try {
       const res = await fetch("https://rhema-backend-production.up.railway.app/notificacoes");
       if (!res.ok) {
+        const errorText = await res.text();
         console.error("Erro na resposta do servidor:", res.status);
+        console.error("Corpo do erro:", errorText);
         console.log("URL:", res.url);
         setHistorico([]);
         return;
@@ -93,7 +101,9 @@ export default function NotificationForm() {
         <ul className="space-y-3">
           {historico.map((item, index) => (
             <li key={index} className="bg-gray-100 p-3 rounded shadow">
-              <div className="text-sm text-gray-500">{new Date(item.data).toLocaleString()}</div>
+              <div className="text-sm text-gray-500">
+                {item.data?.seconds ? new Date(item.data.seconds * 1000).toLocaleString() : "Data inválida"}
+              </div>
               <div className="font-semibold">{item.title}</div>
               <div>{item.body}</div>
             </li>
