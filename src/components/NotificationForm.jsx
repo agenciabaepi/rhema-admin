@@ -15,12 +15,6 @@ export default function NotificationForm() {
         body: JSON.stringify({ to: token, title, body }),
       });
       const data = await res.json();
-      // Após envio, registra a notificação no banco de dados
-      await fetch("https://rhema-backend-production.up.railway.app/registrar-notificacao", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, body, data: new Date().toISOString() }),
-      });
       alert("Notificação enviada com sucesso!");
       setTitle("");
       setBody("");
