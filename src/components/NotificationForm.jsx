@@ -65,7 +65,7 @@ export default function NotificationForm() {
   return (
     <div className="max-w-xl mx-auto p-4 mt-10">
       <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow space-y-4">
-        <h2 className="text-2xl font-bold text-center">Enviar Notificação</h2>
+        <h2 className="text-2xl font-bold text-center">Enviar Notificação Pro App</h2>
 
         <input
           type="text"
